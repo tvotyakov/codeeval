@@ -1,38 +1,17 @@
 #!python3
 import re
 FONT = [
-    [0b01100, 0b10010, 0b10010, 0b10010, 0b01100],
-    [0b00100, 0b01100, 0b00100, 0b00100, 0b01110],
-    [0b11100, 0b00010, 0b01100, 0b10000, 0b11110],
-    [0b11100, 0b00010, 0b01100, 0b00010, 0b11100],
-    [0b01000, 0b10010, 0b11110, 0b00010, 0b00010],
-    [0b11110, 0b10000, 0b11100, 0b00010, 0b11100],
-    [0b01100, 0b10000, 0b11100, 0b10010, 0b01100],
-    [0b11110, 0b00010, 0b00100, 0b01000, 0b01000],
-    [0b01100, 0b10010, 0b01100, 0b10010, 0b01100],
-    [0b01100, 0b10010, 0b01110, 0b00010, 0b01100],
+    ['-**--', '*--*-', '*--*-', '*--*-', '-**--'],
+    ['--*--', '-**--', '--*--', '--*--', '-***-'],
+    ['***--', '---*-', '-**--', '*----', '****-'],
+    ['***--', '---*-', '-**--', '---*-', '***--'],
+    ['-*---', '*--*-', '****-', '---*-', '---*-'],
+    ['****-', '*----', '***--', '---*-', '***--'],
+    ['-**--', '*----', '***--', '*--*-', '-**--'],
+    ['****-', '---*-', '--*--', '-*---', '-*---'],
+    ['-**--', '*--*-', '-**--', '*--*-', '-**--'],
+    ['-**--', '*--*-', '-***-', '---*-', '-**--'],
 ];
-
-def get_big_digit_line(num):
-    ''' (int) -> string
-
-    Returns string of "big digits" representation of one
-    digit line according to its binary representation in
-    the given integer num.
-
-    >>> get_big_digit_line(1)
-    '----*'
-
-    >>> get_big_digit_line(0b11111)
-    '*****'
-
-    >>> get_big_digit_line(0b01010)
-    '-*-*-'
-
-    >>> get_big_digit_line(0b10101)
-    '*-*-*'
-    '''
-    return '{0:05b}'.format(num).replace('0', '-').replace('1', '*')
 
 def get_big_digits(in_str):
     ''' (string) -> string
@@ -65,8 +44,7 @@ def get_big_digits(in_str):
         return ''
 
     letter_lines = len(FONT[0])
-    result = '\n'.join(
-        ''.join(get_big_digit_line(FONT[int(n)][i]) for n in in_str)
+    result = '\n'.join(''.join(FONT[int(n)][i] for n in in_str)
         for i in range(letter_lines)) + '\n' + '-'*(len(in_str)*5)
 
     return result
