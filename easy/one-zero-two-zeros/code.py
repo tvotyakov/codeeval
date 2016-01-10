@@ -1,4 +1,35 @@
 #!python3
+def count_of_zeros(num):
+    ''' (int) -> int
+
+    Returns count of zero bits in the binary representation
+    of the given integer num.
+
+    >>> count_of_zeros(0)
+    1
+
+    >>> count_of_zeros(1)
+    0
+
+    >>> count_of_zeros(2)
+    1
+
+    >>> count_of_zeros(4)
+    2
+
+    >>> count_of_zeros(6)
+    1
+
+    >>> count_of_zeros(7)
+    0
+    '''
+    if num == 0: return 1
+    i = 0
+    while num:
+        i += num & 1 ^ 1
+        num >>= 1
+    return i
+
 def calc_num_with_zeros(zeros_count, max_num):
     ''' (int, int) -> int
 
@@ -20,7 +51,7 @@ def calc_num_with_zeros(zeros_count, max_num):
     '''
     return sum(1
         for i in range(1, max_num + 1)
-        if '{0:b}'.format(i).count('0') == zeros_count)
+        if count_of_zeros(i) == zeros_count)
 
 def parse_input(in_str):
     ''' (string) -> tuple of integer
