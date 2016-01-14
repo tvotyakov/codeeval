@@ -1,7 +1,7 @@
 #!python3
 import itertools
 def get_string_gen(str_len, characters):
-    ''' (int, list of characters) -> list of strings
+    ''' (int, list of characters) -> generator of strings
 
     Returns all of the possible ways to write a string of length str_len from
     the given list of characters in alphabetical order. Expects that the given
