@@ -1,5 +1,4 @@
 #!python3
-from string import ascii_lowercase
 def get_missing_letters(in_str):
     ''' (string) -> string
 
@@ -20,10 +19,12 @@ def get_missing_letters(in_str):
     >>> get_missing_letters('A slow yellow fox crawls under the proactive dog')
     'bjkmqz'
     '''
-    letters = list(ascii_lowercase)
+    letters = list('abcdefghijklmnopqrstuvwxyz')
     for char in in_str.lower():
-        if char in letters:
+        try:
             letters.remove(char)
+        except ValueError:
+            pass
 
     return ''.join(letters) if len(letters) > 0 else 'NULL'
 
