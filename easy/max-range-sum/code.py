@@ -36,10 +36,14 @@ def get_max_range_sum(in_list, range_len):
     >>> get_max_range_sum([-7, 0, -45, 34, -24, 7], 3)
     17
     '''
-    if range_len > len(in_list):
+    if not range_len or range_len > len(in_list):
         return 0
-    max_sum = max(sum(in_list[i: i + range_len])
-                    for i in range(len(in_list) - range_len + 1))
+    max_sum = cur_sum = sum(in_list[:range_len])
+    for i, next_num in enumerate(in_list[range_len:]):
+        cur_sum += -in_list[i] + next_num
+        if cur_sum > max_sum:
+            max_sum = cur_sum
+
     return max_sum if max_sum >= 0 else 0
 
 def parse_in_str(in_str):
