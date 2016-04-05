@@ -1,14 +1,6 @@
 #!python3
-import re
-
-VAMPIRES = 0
-ZOMBIES = 1
-WITCHES = 2
-HOUSES = 3
-
 COEFFS = (3, 4, 5)
-
-find_pattern = re.compile('(?:Vampires:\s*(\d+))|(?:Zombies:\s*(\d+))|(?:Witches:\s*(\d+))|(?:Houses:\s*(\d+))')
+KEYS_INDECES = {'Vampires': 0, 'Zombies': 1, 'Witches': 2, 'Houses': 3}
 
 def parse_input(in_str):
     ''' in_str -> tuple(list of integers, integer)
@@ -31,10 +23,12 @@ def parse_input(in_str):
     '''
     result = [0, 0, 0, 0]
 
-    for m in find_pattern.findall(in_str):
-        for i in range(HOUSES + 1):
-            result[i] += int(m[i]) if m[i] else 0
-    return result[:HOUSES], result[HOUSES]
+    for data in in_str.split(', '):
+        key, value = data.split(': ')
+        value = int(value)
+        result[KEYS_INDECES[key]] += value
+
+    return result[:-1], result[-1]
 
 def calc_candies(children, houses):
     ''' list of integer, integer -> int
